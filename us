@@ -1,0 +1,398 @@
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+local repstr = game:GetService("ReplicatedStorage")
+local plrs = game:GetService("Players")
+local lplr = plrs.LocalPlayer
+
+local Window = WindUI:CreateWindow({
+    Title = "Ultimate Sigma hax",
+    Icon = "door-open",
+    Author = "PatchedVal",
+    Folder = "Sx",
+    Size = UDim2.fromOffset(700, 460),
+    Transparent = true,
+    Theme = "Dark",
+    Resizable = true,
+    SideBarWidth = 200,
+    Background = "",
+    BackgroundImageTransparency = 0.42,
+    HideSearchBar = true,
+    ScrollBarEnabled = false,
+    User = {
+        Enabled = true,
+        Anonymous = true,
+        Callback = function()
+            print("clicked")
+        end,
+    },
+})
+
+local Dialog = Window:Dialog({
+    Icon = "bird",
+    Title = "Hey!",
+    Content = "This script is made by PatchedVal on Scriptblox.",
+    Buttons = {
+        {
+            Title = "Confirm",
+            Callback = function()
+                print("Confirmed!")
+            end,
+        },
+    },
+})
+
+local Section = Window:Section({
+    Title = "basic stuffs",
+    Icon = "bird",
+    Opened = true,
+})
+
+local Tab1 = Window:Tab({
+    Title = "Replicated Storage",
+    Icon = "bird",
+    Locked = false,
+})
+
+
+
+local Toggle1 = Tab1:Toggle({
+    Title = "No Stun On Miss",
+    Desc = "Self-Explainatory",
+    Icon = "bird",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state) 
+        print("Toggle Activated" .. tostring(state))
+        repstr.Settings.Toggles.NoStunOnMiss.Value = state
+    end
+})
+
+local Toggle2 = Tab1:Toggle({
+    Title = "No Slowdown",
+    Desc = "Self-Explainatory",
+    Icon = "bird",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state) 
+        print("Toggle Activated" .. tostring(state))
+        repstr.Settings.Toggles.NoSlowdowns.Value = state
+    end
+})
+
+local Toggle3 = Tab1:Toggle({
+    Title = "No Jump Fatigue",
+    Desc = "Self-Explainatory",
+    Icon = "bird",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state) 
+        print("Toggle Activated" .. tostring(state))
+        repstr.Settings.Toggles.NoJumpFatigue.Value = state
+    end
+})
+
+local Toggle4 = Tab1:Toggle({
+    Title = "Multi Use Cutscenes",
+    Desc = "use a skill that you could only use once normally, e.g: use multiple gon counter",
+    Icon = "bird",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state) 
+        print("Toggle Activated" .. tostring(state))
+        repstr.Settings.Toggles.MultiUseCutscenes.Value = state
+    end
+})
+
+local Toggle5 = Tab1:Toggle({
+    Title = "Instant Transformation",
+    Desc = "skip the transformation and straight up using the ultimate skills wow so fking cool!",
+    Icon = "bird",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state) 
+        print("Toggle Activated" .. tostring(state))
+        repstr.Settings.Toggles.InstantTransformation.Value = state
+    end
+})
+
+local Toggle6 = Tab1:Toggle({
+    Title = "Longer Ultimate",
+    Desc = "Self-Explainatory",
+    Icon = "bird",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state) 
+        print("Toggle Activated" .. tostring(state))
+        repstr.Settings.Toggles.Endless.Value = state
+    end
+})
+
+local Toggle6 = Tab1:Toggle({
+    Title = "No stun",
+    Desc = "buggy, Self-Explainatory",
+    Icon = "bird",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state) 
+        print("Toggle Activated" .. tostring(state))
+        repstr.Settings.Toggles.DisableHitStun.Value = state
+    end
+})
+
+local Toggle7 = Tab1:Toggle({
+    Title = "No WallCombo cooldown",
+    Desc = "Self-Explainatory",
+    Icon = "bird",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state)
+        local wcvalue
+        if state == true then wcvalue = 0 else wcvalue = 100 end
+        print("Toggle Activated" .. tostring(state))
+        repstr.Settings.Cooldowns.WallCombo.Value = wcvalue
+    end
+})
+
+local Toggle7 = Tab1:Toggle({
+    Title = "No Dash cooldown",
+    Desc = "Self-Explainatory",
+    Icon = "bird",
+    Type = "Checkbox",
+    Default = false,
+    Callback = function(state)
+        local dvalue
+        if state == true then dvalue = 0 else dvalue = 100 end
+        print("Toggle Activated" .. tostring(state))
+        repstr.Settings.Cooldowns.Dash.Value = dvalue
+    end
+})
+
+local Slider1 = Tab1:Slider({
+    Title = "Dash Speed",
+    
+
+    Step = 1,
+    
+    Value = {
+        Min = 1,
+        Max = 300,
+        Default = 100,
+    },
+    Callback = function(value)
+        print(value)
+        repstr.Settings.Multipliers.DashSpeed.Value = value
+    end
+})
+
+local Slider2 = Tab1:Slider({
+    Title = "Melee Speed",
+    
+
+    Step = 1,
+    
+    Value = {
+        Min = 1,
+        Max = 300,
+        Default = 100,
+    },
+    Callback = function(value)
+        print(value)
+        repstr.Settings.Multipliers.MeleeSpeed.Value = value
+    end
+})
+
+local Tab2 = Window:Tab({
+    Title = "Bypasses",
+    Icon = "bird",
+    Locked = false,
+})
+
+local function validationmovement()
+        for _, v in pairs(getgc(true)) do
+        if typeof(v) == "function" and debug.getinfo(v).name == "validateMovement" then
+            hookfunction(v, function(...)
+                return true
+            end)
+            break
+        end
+    end
+end
+
+local function validationvelocity()
+        for _, v in pairs(getgc(true)) do
+        if typeof(v) == "function" and debug.getinfo(v).name == "validateVelocity" then
+            hookfunction(v, function(...)
+                return true
+            end)
+            break
+        end
+    end
+end
+
+local function validationcollisions()
+        for _, v in pairs(getgc(true)) do
+        if typeof(v) == "function" and debug.getinfo(v).name == "validateCollisions" then
+            hookfunction(v, function(...)
+                return true
+            end)
+            break
+        end
+    end
+end
+
+local function validationabilities()
+        for _, v in pairs(getgc(true)) do
+        if typeof(v) == "function" and debug.getinfo(v).name == "Valid" then
+            hookfunction(v, function(...)
+                return true
+            end)
+            break
+        end
+    end
+end
+
+local function validationmelee()
+        for _, v in pairs(getgc(true)) do
+        if typeof(v) == "function" and debug.getinfo(v).name == "validateGlobals" then
+            hookfunction(v, function(...)
+                return true
+            end)
+            break
+        end
+    end
+end
+
+
+
+local Section = Tab2:Section({ 
+    Title = "YOU CAN NOT DISABLE THE BYPASS ONCE YOU ENABLE THEM",
+    TextXAlignment = "Left",
+    TextSize = 15,
+})
+
+local Button = Tab2:Button({
+    Title = "Movement Validation Bypass",
+    Desc = "Have fun with your fly hack, it's recommended to also enable velocity validation bypass",
+    Locked = false,
+    Callback = function()
+        validationmovement()
+        print("enabled!")
+    end
+})
+
+local Button = Tab2:Button({
+    Title = "Velocity Validation Bypass",
+    Desc = "yay bye bye velocity validation",
+    Locked = false,
+    Callback = function()
+        validationvelocity()
+        print("enabled!")
+    end
+})
+
+local Button = Tab2:Button({
+    Title = "Collisions Validation Bypass",
+    Desc = "have fun with your no clip hack",
+    Locked = false,
+    Callback = function()
+        validationcollisions()
+        print("enabled!")
+    end
+})
+
+local Button = Tab2:Button({
+    Title = "Abilities Validation Bypass",
+    Desc = "use your ability no matter, e.g: using while using another ability. u can't use ur abilities when u r stunned tho",
+    Locked = false,
+    Callback = function()
+        validationabilities()
+        print("enabled!")
+    end
+})
+
+local Button = Tab2:Button({
+    Title = "Melee Validation Bypass",
+    Desc = "same as abilities validation bypass",
+    Locked = false,
+    Callback = function()
+        validationmelee()
+        print("enabled!")
+    end
+})
+
+
+local Section = Window:Section({
+    Title = "shits so advanced it got it's own tab",
+    Icon = "bird",
+    Opened = true,
+})
+
+local Tab3 = Window:Tab({
+    Title = "Hitbox Expander",
+    Icon = "bird",
+    Locked = false,
+})
+
+local Section = Tab3:Section({ 
+    Title = "just a head up, please acknowledge what u r doing",
+    TextXAlignment = "Left",
+    TextSize = 15,
+})
+
+local method = nil
+local x = 0
+local y = 0
+local z = 0
+
+local Dropdown = Tab3:Dropdown({
+    Title = "Method",
+    Values = { "Add", "Set"},
+    Value = "Add",
+    Multi = false,
+    AllowNone = false,
+    Callback = function(option)
+        method = option
+        print(game:GetService("HttpService"):JSONEncode(option)) 
+    end
+})
+
+
+local InputX = Tab3:Input({
+    Title = "X vector",
+    Desc = "",
+    Value = "0",
+    InputIcon = "bird",
+    Type = "Input",
+    Placeholder = "Enter text...",
+    Callback = function(input)
+        local num = tonumber(input)
+        if not num then
+            print("invalid, x vector value must be a number")
+            return
+        end
+        x = num
+        print("x vector: " .. num)
+    end
+})
+
+local InputY = Tab3:Input({
+    Title = "Y vector",
+    Desc = "",
+    Value = "0",
+    InputIcon = "bird",
+    Type = "Input",
+    Placeholder = "Enter text...",
+    Callback = function(input)
+        local num = tonumber(input)
+        if not num then
+            print("invalid, y vector value must be a number")
+            return
+        end
+        y = num
+        print("y vector: " .. num)
+    end
+})
+
+local InputZ = Tab3:Input({
+    Title = "Z vector",
+    Desc = "",
+    Value =
